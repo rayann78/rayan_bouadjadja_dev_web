@@ -118,3 +118,38 @@ export const getOneRecipe = async (recipeId) => {
 		throw error
 	}
 }
+
+export const deletOneRecipe = async (recipeId) => {
+	try {
+		console.log("API recipeData:", recipeId)
+		// TODO 1: Créer l'objet de configuration pour fetch
+		// Il doit contenir:
+		// - method: 'DELETE'
+		// - headers: { 'Content-Type': 'application/json' }
+		// - recipeId: recipeId dans l'URL
+
+		// TODO: Compléter l'objet options ici
+		const options = {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+		const url = `${API_BASE_URL}/${recipeId}`
+
+		// TODO 2: Faire la requête GET avec fetch(API_BASE_URL, options)
+		const response = await fetch(url, options) // TODO: appeler fetch avec l'URL et les options
+		console.log("API response:", response)
+
+		// TODO 3: Vérifier que la requête a réussi (response.ok)
+		// Si pas ok, throw new Error avec le status
+
+		// TODO 4: Extraire et retourner les données JSON
+		const recipe = null // TODO: appeler response.json()
+
+		return recipe
+	} catch (error) {
+		console.error("Erreur lors de la création de la recette:", error)
+		throw error
+	}
+}

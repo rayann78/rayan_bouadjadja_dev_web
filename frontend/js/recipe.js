@@ -1,14 +1,11 @@
 // ============================================
 // IMPORTS - Modules nécessaires
 // ============================================
-import { getOneRecipe } from "./api.js"
-import { renderRecipeCard } from "./ui.js"
+import { getOneRecipe, deletOneRecipe } from "./api.js"
+import { renderRecipeCard, renderSingleRecipe } from "./ui.js"
 
 const loadRecipe = async (recipeId) => {
 	try {
-		// 1. Appeler l'API pour récupérer la recette par son ID
-		// const recipe = await getOneRecipe(recipeId)
-
 		// Mock de recette pour test sans backend
 		// TODO: Supprimer cette ligne quand l'API sera fonctionnelle
 		const recipe = {
@@ -35,10 +32,18 @@ const loadRecipe = async (recipeId) => {
 				"https://images.pexels.com/photos/5190684/pexels-photo-5190684.jpeg",
 		}
 
+		// 1. Appeler l'API pour récupérer la recette par son ID
+		//const recipe = await renderSingleRecipe(recipe)
+		//TODO: appeler renderSingleRecipe(recipe)
+		console.log(renderSingleRecipe(recipe))
+		const recipeDetail = document.getElementById("recipe-detail")
+
+		recipeDetail.innerHTML = renderSingleRecipe(recipe)
+
 		// 2. Afficher la recette dans la grid
 		//renderRecipeCard(recipe)
 	} catch (error) {
-		console.error("Erreur lors du chargement de la recette:", error)
+		console.error("Erreur lors du chargement de la recette:", error.message)
 		alert(
 			"Impossible de charger la recette. Vérifiez que le serveur est demarré."
 		)
@@ -71,8 +76,11 @@ const setupEventListeners = () => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	console.log("Application chargée")
-	loadRecipe("1")
+	// receive recipe id from url
+	const urlParams = new URLSearchParams(window.location.search)
+	const recipeId = urlParams.get("id")
+	console.log("API recipeData:", recipeId)
+	loadRecipe(recipeId)
 	setupEventListeners()
 })
 
